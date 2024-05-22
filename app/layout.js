@@ -12,9 +12,9 @@ export const metadata = {
   },
   description:
     "Luxorious Hotels which loacted in the heart of Iran by beautiful mountains , beach and dark forest",
-  icons: {
-    icon: "/logo.png",
-  },
+  // icons: {
+  //   icon: "/logo.png",
+  // },
 };
 
 export default function RootLayout({ children }) {
