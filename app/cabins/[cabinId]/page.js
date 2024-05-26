@@ -1,14 +1,23 @@
-import { getCabin } from "@/app/_lib/data-service";
+import { getCabin, getCabins } from "@/app/_lib/data-service";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import { notFound } from "next/navigation";
 
+//set StaticParams
+export async function generateStaticParams() {
+  const cabins = await getCabins();
+  const ids = cabins.map((cabin) => {
+    return {
+      cabinId: String(cabin.id),
+    };
+  });
+  return ids;
+}
+
+// dynamic metadata by : generateMetadata
 export async function generateMetadata({ params }) {
   const cabinId = params.cabinId;
   const cabin = await getCabin(cabinId);
-  if (!cabin.name) {
-    notFound();
-  }
+
   return {
     title: `Cabins ${cabin?.name}`,
   };
