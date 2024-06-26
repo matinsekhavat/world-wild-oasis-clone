@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 function Filter() {
   const searchParams = useSearchParams();
+  const capacity = searchParams.get("capacity");
   const router = useRouter();
   const pathname = usePathname();
   function handleFilter(value) {
@@ -15,32 +16,45 @@ function Filter() {
   }
   return (
     <div className="border border-primary-800 flex">
-      <button
-        className="px-5 py-2 hover:bg-primary-700"
-        onClick={() => handleFilter("all")}
-      >
-        All cabins
-      </button>
-      <button
-        className="px-5 py-2 hover:bg-primary-700"
-        onClick={() => handleFilter("small")}
+      <Button handleFilter={handleFilter} filter="all" activeFilter={capacity}>
+        All
+      </Button>
+      <Button
+        handleFilter={handleFilter}
+        filter="small"
+        activeFilter={capacity}
       >
         1&mdash; 3 guest
-      </button>{" "}
-      <button
-        className="px-5 py-2 hover:bg-primary-700"
-        onClick={() => handleFilter("medium")}
+      </Button>
+      <Button
+        handleFilter={handleFilter}
+        filter="medium"
+        activeFilter={capacity}
       >
         4&mdash; 7 guest
-      </button>
-      <button
-        className="px-5 py-2 hover:bg-primary-700"
-        onClick={() => handleFilter("large")}
+      </Button>
+      <Button
+        handleFilter={handleFilter}
+        filter="large"
+        activeFilter={capacity}
       >
         8&mdash; 12 guest
-      </button>
+      </Button>
     </div>
   );
 }
 
+function Button({ filter, handleFilter, activeFilter, children }) {
+  // console.log(activeFilter, filter);
+  return (
+    <button
+      className={`px-5 py-2 hover:bg-primary-700 ${
+        activeFilter === filter ? "bg-primary-500" : "text-primary-50"
+      } `}
+      onClick={() => handleFilter(filter)}
+    >
+      {children}
+    </button>
+  );
+}
 export default Filter;
